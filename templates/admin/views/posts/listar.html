@@ -1,42 +1,55 @@
 {% extends "dashboard.html" %}
 
-{% block conteudo %}
+{% block conteudo %}  
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Posts
+        </li>
+    </ol>
+</nav>
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-      <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
+<a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
-                  <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Ação</th>
-                  </tr>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    {%for post in posts%}
-                  <tr>
-                    <th>{{post.id}}</th>
-                    <td>{{post.titulo}}</td>
-                    <td>
-                        {%if post.status == 1 %}
-                        Ativo
-                        {% else %}
-                        Desligado
-                        {%endif%}
-                    </td>
-                    <td>@mdo</td>
-                  </tr>
-                    {%endfor%}    
+                    {% for post in posts %}
+                    <tr>
+                        <th>{{post.id}}</th>
+                        <td>{{post.titulo}}</td>
+                        <td class="text-center">
+                            {% if post.status == 1 %}
+                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
+                            {% else %}
+                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ url('admin/posts/editar/'~post.id) }}">Editar</a>
+                            <a href="{{ url('admin/posts/deletar/'~post.id) }}">Deletar</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
                 </tbody>
-              </table>
-        </div>
-       
-        
-        
+            </table>
+        </div>     
+
 
     </div>
 </div>

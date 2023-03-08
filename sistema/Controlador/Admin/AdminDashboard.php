@@ -1,13 +1,12 @@
-<?php 
+<?php
 
 namespace sistema\Controlador\Admin;
 
+
 class AdminDashboard extends AdminControlador
 {
-    public function dashboard(): void
+    public function dashboard():void
     {
-        echo $this->template->renderizar('dashboard.html',[
-
-        ]);
+        echo $this->template->renderizar('dashboard.html', []);
     }
 }

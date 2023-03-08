@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace sistema\Controlador\Admin;
 
@@ -10,5 +10,5 @@ class AdminControlador extends Controlador
     {
         parent::__construct('templates/admin/views');
     }
+    
 }
-
