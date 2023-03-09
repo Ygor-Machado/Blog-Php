@@ -13,11 +13,13 @@
         </li>
     </ol>
 </nav>
+{{flash()}}
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-<a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
+        <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary">Cadastrar</a>
     </div>
     <div class="card-body">
+        Total de posts {{total.total}} - ativos {{total.ativo}} - inativos {{total.inativo}}
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>

@@ -7,9 +7,11 @@ use sistema\Nucleo\Conexao;
 
 class PostModelo
 {
-    public function busca(): array
+    public function busca(?string $termo = null): array
     {
-        $query = "SELECT * FROM posts WHERE status = 1 ORDER BY id DESC "; 
+        $termo = ($termo ? "WHERE ${termo}" : '');
+
+        $query = "SELECT * FROM posts {$termo} "; 
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
@@ -55,9 +57,11 @@ class PostModelo
         $stmt->execute(); 
     }
 
-    public function total():int
+    public function total(?string $termo = null):int
     {
-        $query =  "SELECT * FROM posts";
+        $termo = ($termo ? "WHERE ${termo}" : '');
+
+        $query =  "SELECT * FROM posts {$termo}";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute(); 
 

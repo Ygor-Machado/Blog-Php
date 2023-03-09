@@ -7,9 +7,11 @@ use sistema\Nucleo\Conexao;
 
 class CategoriaModelo
 {
-    public function busca(): array
+    public function busca(?string $termo = null): array
     {
-        $query = "SELECT * FROM categorias WHERE status = 1 ORDER BY titulo ASC "; 
+        $$termo = ($termo ? "WHERE ${termo}" : '');
+
+        $query = "SELECT * FROM categorias {$termo} "; 
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
@@ -53,6 +55,17 @@ class CategoriaModelo
         $query =  "DELETE FROM categorias WHERE id = {$id}";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute(); 
+    }
+
+    public function total(?string $termo = null):int
+    {
+        $termo = ($termo ? "WHERE ${termo}" : '');
+
+        $query =  "SELECT * FROM categorias {$termo}";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute(); 
+
+        return $stmt-> rowCount();
     }
     
 }

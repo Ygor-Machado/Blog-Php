@@ -3,10 +3,22 @@
 namespace sistema\Nucleo;
 
 use Exception;
+use sistema\Nucleo\Sessao;
 
 class Helpers 
 {
     
+    public static function flash(): ?string
+    {
+        $sessao = new Sessao();
+
+        if($flash = $sessao->flash()) {
+            echo $flash;
+        }
+
+        return null;
+    }
+
     public static function redirecionar(string $url = null): void
     {
         header('HTTP/1.1 302 Found');

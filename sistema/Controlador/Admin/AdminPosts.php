@@ -13,7 +13,12 @@ class AdminPosts extends AdminControlador
     {
         echo $this->template->renderizar('posts/listar.html', [
             'posts' => (new PostModelo())->busca(),
-            'total' => (new PostModelo())->total()
+            'total' => [
+                'total' => (New PostModelo())->total(),
+                'ativo' => (New PostModelo())->total('status = 1'),
+                'inativo' => (New PostModelo())->total('status = 0')
+
+            ]
         ]);
     }
     
@@ -21,8 +26,9 @@ class AdminPosts extends AdminControlador
     {
          $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
          if(isset($dados)){
-              (new PostModelo())->armazenar($dados);
-             Helpers::redirecionar('admin/posts/listar');
+            (new PostModelo())->armazenar($dados);
+            $this->mensagem->sucesso('Post cadastrado com sucesso')-> flash();
+            Helpers::redirecionar('admin/posts/listar');
          }
          
         echo $this->template->renderizar('posts/formulario.html', [
@@ -37,6 +43,7 @@ class AdminPosts extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
          if(isset($dados)){
               (new PostModelo())->atualizar($dados, $id);
+              $this->mensagem->sucesso('Post atualizado com sucesso')-> flash();
               Helpers::redirecionar('admin/posts/listar');
          }
         
@@ -49,6 +56,7 @@ class AdminPosts extends AdminControlador
     public function deletar(int $id):void
     {
         (new PostModelo())->deletar($id);
+        $this->mensagem->erro('Post Deletado')-> flash();
         Helpers::redirecionar('admin/posts/listar');
     }
 }
