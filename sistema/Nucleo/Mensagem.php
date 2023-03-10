@@ -8,7 +8,7 @@ class Mensagem
 
     private $texto;
     private $css;
-    
+
     public function __toString()
     {
         return $this->renderizar();
@@ -68,7 +68,7 @@ class Mensagem
      */
     public function renderizar(): string
     {
-        return "<div class='{$this->css}'>{$this->texto}</div>";
+        return "<div class='{$this->css} alert-dismissible fade show'>{$this->texto}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }
 
     /**
@@ -81,7 +81,11 @@ class Mensagem
         return filter_var($mensagem, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    public function flash (): void 
+    /**
+     * Cria a sessão das mensagens flash
+     * @return void
+     */
+    public function flash(): void
     {
         (new Sessao())->criar('flash', $this);
     }

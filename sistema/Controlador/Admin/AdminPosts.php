@@ -12,7 +12,7 @@ class AdminPosts extends AdminControlador
     public function listar():void
     {
         echo $this->template->renderizar('posts/listar.html', [
-            'posts' => (new PostModelo())->busca(),
+            'posts' => (new PostModelo())->busca()->ordem('id DESC')->resultado(true),
             'total' => [
                 'total' => (New PostModelo())->total(),
                 'ativo' => (New PostModelo())->total('status = 1'),
@@ -56,7 +56,7 @@ class AdminPosts extends AdminControlador
     public function deletar(int $id):void
     {
         (new PostModelo())->deletar($id);
-        $this->mensagem->erro('Post Deletado')-> flash();
+     
         Helpers::redirecionar('admin/posts/listar');
     }
 }

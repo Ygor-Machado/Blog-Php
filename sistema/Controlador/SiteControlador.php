@@ -21,7 +21,7 @@ class SiteControlador extends Controlador
      */
     public function index(): void
     {
-        $posts = (new PostModelo())->busca();
+        $posts = (new PostModelo())->busca(null, 'ID ASC');
         
         echo $this->template->renderizar('index.html', [
             'posts' => $posts,
@@ -64,7 +64,7 @@ class SiteControlador extends Controlador
      * Categorias
      * @return array
      */
-    public function categorias(): array
+    public function categorias()
     {
         return (new CategoriaModelo())->busca();
     }
